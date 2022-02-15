@@ -1,0 +1,122 @@
+* {
+  margin: 0;
+  padding: 0;
+  user-select: none;
+}
+@keyframes round {
+  0% {
+    transform: rotateZ(0deg);
+  }
+  100% {
+    transform: rotateZ(360deg);
+  }
+}
+@keyframes rounds {
+  0% {
+    transform: rotateZ(360deg);
+  }
+  100% {
+    transform: rotateZ(0deg);
+  }
+}
+body {
+  width: 100vw;
+  height: 100vh;
+  background-color: #000;
+  overflow: hidden;
+  position: relative;
+}
+body .box {
+  width: 300px;
+  height: 300px;
+  background: linear-gradient(to bottom, red, yellow, lightgreen, blue);
+  box-shadow: 0px 0px 10px lightgreen;
+  margin: 150px calc(50% - 150px);
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  animation: round 4s infinite linear;
+  overflow: hidden;
+  position: absolute;
+}
+body .box .play {
+  width: 99%;
+  height: 99%;
+  background: linear-gradient(to right bottom, #424242, #000);
+  border-radius: 50%;
+  animation: rounds 4s infinite linear;
+  color: #fff;
+}
+body .box .play img {
+  width: 100px;
+  height: 100px;
+  margin: 50px 100px;
+  border-radius: 50%;
+  border: 2px solid #ccc;
+  z-index: 1;
+}
+body .box .play .controls {
+  width: 136px;
+  height: 32px;
+  margin: 40px 92px;
+  z-index: 2;
+}
+body .box .play .controls p {
+  width: 32px;
+  height: 32px;
+  cursor: pointer;
+  border-radius: 50%;
+  display: inline-block;
+}
+body .box .play .controls p:hover {
+  transform: scale(1.2);
+}
+body .box .play .controls p:nth-of-type(1) {
+  background: url(../images/prev.png);
+}
+body .box .play .controls p:nth-of-type(2) {
+  background: url(../images/play.png);
+  margin-left: 10px;
+}
+body .box .play .controls p:nth-of-type(3) {
+  background: url(../images/next.png);
+  margin-left: 10px;
+}
+body .box .play .bar {
+  width: 180px;
+  background-color: #eee;
+  border-radius: 1px;
+  margin: -20px 60px;
+  cursor: pointer;
+  position: relative;
+}
+body .box .play .bar .circle {
+  width: 0px;
+  height: 2px;
+  background-color: #22c3d8;
+  border-radius: 1px;
+  position: relative;
+}
+body .box .play .bar .circle .child {
+  width: 5px;
+  height: 5px;
+  background-color: #22c3d8;
+  border-radius: 50%;
+  position: absolute;
+  right: -2.5px;
+  top: -1.5px;
+}
+body .box .play .bar .nowTime {
+  font-size: 12px;
+  position: absolute;
+  left: -35px;
+  top: -8px;
+  color: #22c3d8;
+}
+body .box .play .bar .allTime {
+  font-size: 12px;
+  position: absolute;
+  right: -35px;
+  top: -8px;
+}

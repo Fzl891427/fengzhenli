@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="zh-Cn">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>网抑音乐</title>
+    <!-- 引入网页图标 -->
+    <link rel="shortcut icon" href="./music.ico" type="image/x-icon" />
+    <!-- 引入css -->
+    <link rel="stylesheet" href="./css/music.css">
+    <style>
+    </style>
+</head>
+
+<body>
+    <div class="box">
+        <div class="play">
+            <img src="./images/music.webp" alt="">
+            <audio src="./audio/demo.mp3" loop></audio>
+            <div class="bar">
+                <div class="circle">
+                    <div class="child"></div>
+                </div>
+                <span class="nowTime">00:00</span>
+                <span class="allTime">00:00</span>
+            </div>
+            <div class="controls">
+                <p></p>
+                <p></p>
+                <p></p>
+            </div>
+        </div>
+    </div>
+    <!-- <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.js"></script> -->
+    <script>
+        // 获取控制标签
+        let play = document.querySelector('.controls>p:nth-of-type(2)');
+        let prev = document.querySelector('.controls>p:nth-of-type(1)');
+        let next = document.querySelector('.controls>p:nth-of-type(3)');
+        let aut = document.querySelector('audio');
+        let img = document.querySelector('.play>img');
+        let isPlay = true;
+        // 播放暂停
+        play.onclick = function () {
+            if (isPlay) {
+                this.style.background = 'url(./images/pause.png)';
+                aut.play();
+                img.style.animation = 'round 2s infinite linear';
+                isPlay = false;
+            } else {
+                this.style.background = 'url(./images/play.png)';
+                img.style.animationPlayState = 'paused';
+                aut.pause();
+                isPlay = true;
+            }
+        }
+        // 上一曲
+        prev.onclick = function () {
+            aut.src = "./audio/pianai.mp3";
+            if (!isPlay) {
+                this.nextElementSibling.style.background = 'url(./images/pause.png)';
+                aut.play();
+            } else {
+                aut.pause();
+            }
+        }
+        // 下一曲
+        next.onclick = function () {
+            aut.src = "./audio/music.mp3";
+            if (!isPlay) {
+                this.previousElementSibling.style.background = 'url(./images/pause.png)';
+                aut.play();
+            } else {
+                aut.pause();
+            }
+        }
+
+        // 当前音频时长变化
+        aut.oncanplay = function (e) {
+            let m = Math.floor(e.target.duration / 60);
+            let s = Math.ceil(e.target.duration % 60);
+            document.querySelector('.allTime').textContent = (m > 9 ? m : '0' + m) + ":" + (s > 9 ? s : '0' + s);
+        }
+        // 获取当前歌曲播放进度
+        aut.ontimeupdate = function(e){
+            let m = Math.floor(e.target.currentTime / 60);
+            let s = Math.ceil(e.target.currentTime % 60);
+            document.querySelector('.nowTime').textContent = (m > 9 ? m : '0' + m) + ":" + (s > 9 ? s : '0' + s);
+            // 设置进度条跟随歌曲播放变化
+            let width = Math.floor((e.target.currentTime * 180) / e.target.duration);
+            document.querySelector('.circle').style.width = width + 'px';
+        }
+
+        // 进度条点击事件
+        let musicBar = document.querySelector('.bar');
+        musicBar.onclick = function(e){
+            // 获取当前点坐标点计算对应宽度
+            document.querySelector('.circle').style.width = e.offsetX + 'px';
+            aut.currentTime = (aut.duration * e.offsetX) / 180;
+        }
+        // 进度条拖动事件
+        
+    </script>
+</body>
+
+</html>
